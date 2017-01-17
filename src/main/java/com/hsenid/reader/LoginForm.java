@@ -40,7 +40,7 @@ public class LoginForm extends JFrame {
                 }
 
                 User currentUser = userJdbcTemplate.getUser(UserName);
-//vidushka have to start from here
+          //vidushka have to start from here
                 if (currentUser == null || !currentUser.getUsr_pass().equals(Password)) {
                     JOptionPane.showMessageDialog(null, "Login Fail");
                 } else {
