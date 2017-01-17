@@ -3,4 +3,23 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="adminDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/readerbuddy?useSSL=false"/>
+        <property name="username" value="readeradmin"/>
+        <property name="password" value="Admin123"/>
+    </bean>
+
+    <bean id="userDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/readerbuddy?useSSL=false"/>
+        <property name="username" value="readeruser"/>
+        <property name="password" value="User123"/>
+    </bean>
+
+    <bean id="userJDBCTemplate" class="com.hsenid.reader.UserJDBCTemplate">
+        <property name="dataSource" ref="userDataSource"/>
+    </bean>
+
+    <bean id="utilities" class="com.hsenid.reader.Utilities"/>
 </beans>
