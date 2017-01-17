@@ -16,10 +16,6 @@ public class ReaderBuddy
         ApplicationContext beanFactory = new ClassPathXmlApplicationContext("META-INF/Beans.xml");
         UserJDBCTemplate userJbdcObj = beanFactory.getBean("userJDBCTemplate", UserJDBCTemplate.class);
         Utilities utils = beanFactory.getBean("utilities", Utilities.class);
-        try {
-            userJbdcObj.createUser("kanchana", utils.getSHA("hSenid123", 1));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        LoginForm loginForm = beanFactory.getBean("loginform", LoginForm.class);
     }
 }

@@ -5,16 +5,21 @@
 
     <bean id="adminDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/readerbuddy?useSSL=false"/>
+        <property name="url" value="jdbc:mysql://10.0.0.19:3306/readerbuddy?useSSL=false"/>
         <property name="username" value="readeradmin"/>
         <property name="password" value="Admin123"/>
     </bean>
 
     <bean id="userDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/readerbuddy?useSSL=false"/>
+        <property name="url" value="jdbc:mysql://10.0.0.19:3306/readerbuddy?useSSL=false"/>
         <property name="username" value="readeruser"/>
         <property name="password" value="User123"/>
+    </bean>
+
+    <bean id="loginform" class="com.hsenid.reader.LoginForm">
+        <property name="userJdbcTemplate" ref="userJDBCTemplate" />
+        <property name="utilities" ref="utilities" />
     </bean>
 
     <bean id="userJDBCTemplate" class="com.hsenid.reader.UserJDBCTemplate">
