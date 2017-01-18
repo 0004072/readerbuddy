@@ -6,7 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
+import java.util.*;
+import java.util.Timer;
 
 /**
  * Created by hsenid on 1/17/17.
@@ -40,11 +41,22 @@ public class LoginForm extends JFrame {
                 }
 
                 User currentUser = userJdbcTemplate.getUser(UserName);
-          //vidushka have to start from here
                 if (currentUser == null || !currentUser.getUsr_pass().equals(Password)) {
-                    JOptionPane.showMessageDialog(null, "Login Fail");
+                    JOptionPane failDialogPane = new JOptionPane("Login Fail", JOptionPane.ERROR_MESSAGE);
+                    final JDialog failDialog = failDialogPane.createDialog(null, "Error!");
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            failDialog.setVisible(false);
+                        }
+                    }, 5000);
+                    failDialog.setVisible(true);
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Login Success");
+                    terminateLogin();
+                    ParentWindow window = new ParentWindow();
+                    window.loadParentWindow();
                 }
 
             }
@@ -53,6 +65,16 @@ public class LoginForm extends JFrame {
 
 
     private void FormLoading() {
+        addStyle();
+        setTitle("LogIn Form");
+        setResizable(false);
+        setSize(300, 150);
+        setContentPane(LogInForm);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public void addStyle() {
         try {
 
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -68,12 +90,11 @@ public class LoginForm extends JFrame {
 
             e.printStackTrace();
         }
-        setTitle("LogIn Form");
-        setResizable(false);
-        setSize(300, 150);
-        setContentPane(LogInForm);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+    }
+
+    public void terminateLogin() {
+        setVisible(false);
+        dispose();
     }
 
     public void setTxtUserName(String TxtUserName) {
@@ -110,6 +131,7 @@ public class LoginForm extends JFrame {
 
     public static void main(String[] args) {
         LoginForm obj = new LoginForm();
+
     }
 
     {
