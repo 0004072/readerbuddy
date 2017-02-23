@@ -20,5 +20,7 @@ public class ReaderBuddy
         //BookJDBCTemplate bookJDBCObj= beanFactory.getBean("bookJDBCTemplate", BookJDBCTemplate.class);
         //ViewBookDetails viewBooks = beanFactory.getBean("viewBook", ViewBookDetails.class);
         //ParentWindow parent = beanFactory.getBean("parentWindow", ParentWindow.class);
+        //SaveLocationChooser locationChooser = beanFactory.getBean("saveLocation", SaveLocationChooser.class);
+
     }
 }

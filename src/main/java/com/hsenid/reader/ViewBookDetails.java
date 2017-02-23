@@ -19,8 +19,17 @@ public class ViewBookDetails extends JInternalFrame {
     JLabel lblKeyWord;
     JLabel lblTitle;
     JButton btnSearch;
+    private SaveLocationChooser saveLocation;
     private JList<String> bookViewList;
     int i = 0;
+
+    public SaveLocationChooser getSaveLocation() {
+        return saveLocation;
+    }
+
+    public void setSaveLocation(SaveLocationChooser saveLocation) {
+        this.saveLocation = saveLocation;
+    }
 
     public ViewBookDetails(BookJDBCTemplate bookJDBCTemplate) {
         super("Books", true, true, true, true);
@@ -46,6 +55,7 @@ public class ViewBookDetails extends JInternalFrame {
 
                     if (selectedOption == 0) {
                         System.out.println("Method for download " + bookViewList.getSelectedValue());
+                        saveLocation.selectLocation();
                     } else if (selectedOption == 1) {
                         System.out.println("Method for update " + bookViewList.getSelectedValue());
                     } else if (selectedOption == 2) {

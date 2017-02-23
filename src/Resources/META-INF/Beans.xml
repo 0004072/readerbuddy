@@ -33,7 +33,10 @@
 
     <bean id="viewBook" class="com.hsenid.reader.ViewBookDetails" >
         <constructor-arg ref="bookJDBCTemplate" type="com.hsenid.reader.BookJDBCTemplate"/>
+        <property name="saveLocation" ref="saveLocationSelect" />
     </bean>
+
+    <bean id="saveLocationSelect" class="com.hsenid.reader.SaveLocationChooser" />
 
     <bean id="parentWindow" class="com.hsenid.reader.ParentWindow">
         <property name="userJDBCTemplate" ref="userJDBCTemplate" />
