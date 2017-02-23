@@ -5,26 +5,40 @@
 
     <bean id="adminDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://10.0.0.19:3306/readerbuddy?useSSL=false"/>
-        <property name="username" value="readeradmin"/>
-        <property name="password" value="Admin123"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/readerbuddy?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="vidu"/>
     </bean>
 
     <bean id="userDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://10.0.0.19:3306/readerbuddy?useSSL=false"/>
-        <property name="username" value="readeruser"/>
-        <property name="password" value="User123"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/readerbuddy?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="vidu"/>
     </bean>
 
     <bean id="loginform" class="com.hsenid.reader.LoginForm">
         <property name="userJdbcTemplate" ref="userJDBCTemplate" />
         <property name="utilities" ref="utilities" />
+        <property name="pWindow" ref="parentWindow" />
+    </bean>
+
+    <bean id="bookJDBCTemplate" class="com.hsenid.reader.BookJDBCTemplate">
+        <property name="dataSource" ref="userDataSource" />
     </bean>
 
     <bean id="userJDBCTemplate" class="com.hsenid.reader.UserJDBCTemplate">
         <property name="dataSource" ref="userDataSource"/>
     </bean>
 
-    <bean id="utilities" class="com.hsenid.reader.Utilities"/>
+    <bean id="viewBook" class="com.hsenid.reader.ViewBookDetails" >
+        <constructor-arg ref="bookJDBCTemplate" type="com.hsenid.reader.BookJDBCTemplate"/>
+    </bean>
+
+    <bean id="parentWindow" class="com.hsenid.reader.ParentWindow">
+        <property name="userJDBCTemplate" ref="userJDBCTemplate" />
+        <constructor-arg ref="viewBook" type="com.hsenid.reader.ViewBookDetails" />
+    </bean>
+
+    <bean id="utilities" class="com.hsenid.reader.Utilities" />
 </beans>

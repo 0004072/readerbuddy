@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.Timer;
 
+
 /**
  * Created by hsenid on 1/17/17.
  */
@@ -21,6 +22,11 @@ public class LoginForm extends JFrame {
     private String txtPassword;
     private UserJDBCTemplate userJdbcTemplate;
     private Utilities utilities;
+    private ParentWindow pWindow;
+
+    public void setpWindow(ParentWindow pWindow) {
+        this.pWindow = pWindow;
+    }
 
     public LoginForm() {
         add(LogInForm);
@@ -55,8 +61,7 @@ public class LoginForm extends JFrame {
 
                 } else {
                     terminateLogin();
-                    ParentWindow window = new ParentWindow();
-                    window.loadParentWindow();
+                    pWindow.loadParentWindow();
                 }
 
             }
@@ -65,11 +70,11 @@ public class LoginForm extends JFrame {
 
 
     private void FormLoading() {
-        addStyle();
         setTitle("LogIn Form");
         setResizable(false);
         setSize(300, 150);
         setContentPane(LogInForm);
+        addStyle();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
@@ -151,6 +156,7 @@ public class LoginForm extends JFrame {
     private void $$$setupUI$$$() {
         LogInForm = new JPanel();
         LogInForm.setLayout(new GridBagLayout());
+        LogInForm.setBackground(new Color(-65794));
         final JLabel label1 = new JLabel();
         label1.setText("User Name");
         GridBagConstraints gbc;
@@ -187,6 +193,7 @@ public class LoginForm extends JFrame {
         gbc.insets = new Insets(5, 15, 0, 15);
         LogInForm.add(TxtPassword, gbc);
         logInButton = new JButton();
+        logInButton.setBackground(new Color(-1711135));
         logInButton.setText("LogIn");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;

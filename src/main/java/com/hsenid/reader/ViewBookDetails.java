@@ -1,8 +1,13 @@
 package com.hsenid.reader;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
-import java.util.Iterator;
+import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Vidushka on 18/01/17.
@@ -13,25 +18,43 @@ public class ViewBookDetails extends JInternalFrame {
     JTextField txtKeyWord;
     JLabel lblKeyWord;
     JLabel lblTitle;
-    JTextArea bookList;
     JButton btnSearch;
-    private JList<Book> bookViewList;
-    //private BookJDBCTemplate bookJDBCTemplate;
+    private JList<String> bookViewList;
     int i = 0;
-
 
     public ViewBookDetails(BookJDBCTemplate bookJDBCTemplate) {
         super("Books", true, true, true, true);
-        DefaultListModel<Book> books = new DefaultListModel<>();
+        DefaultListModel<String> books = new DefaultListModel<>();
 
-        while (i < bookJDBCTemplate.getBookList().size()) {
-            books.add(i, bookJDBCTemplate.getBookList().get(i));
+        List<Book> bkList = bookJDBCTemplate.getBookList();
+        while (i < bkList.size()) {
+            books.add(i, (bkList.get(i).getBk_title() + " | " + bkList.get(i).getBk_author() + " | " +
+                    bkList.get(i).getBk_desc()));
             i++;
         }
 
         bookViewList.setModel(books);
         add(panelX);
         pack();
+
+        bookViewList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                if (SwingUtilities.isRightMouseButton(me)) {
+                    String[] buttons = {"Download", "Update", "Delete"};
+                    int selectedOption = JOptionPane.showOptionDialog(null, "", "Select a option",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, buttons[0]);
+
+                    if (selectedOption == 0) {
+                        System.out.println("Method for download " + bookViewList.getSelectedValue());
+                    } else if (selectedOption == 1) {
+                        System.out.println("Method for update " + bookViewList.getSelectedValue());
+                    } else if (selectedOption == 2) {
+                        System.out.println("Method for delete " + bookViewList.getSelectedValue());
+                    }
+                }
+            }
+        });
+
     }
 
     {
@@ -69,15 +92,6 @@ public class ViewBookDetails extends JInternalFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(5, 5, 5, 5);
         panelX.add(lblKeyWord, gbc);
-        bookList = new JTextArea();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.weighty = 20.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        panelX.add(bookList, gbc);
         txtTitle = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -104,10 +118,11 @@ public class ViewBookDetails extends JInternalFrame {
         bookViewList = new JList();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
-        gbc.weighty = 10.0;
+        gbc.weighty = 20.0;
         gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(5, 5, 5, 5);
         panelX.add(bookViewList, gbc);
     }
 
@@ -117,6 +132,23 @@ public class ViewBookDetails extends JInternalFrame {
     public JComponent $$$getRootComponent$$$() {
         return panelX;
     }
+
+    /*public void mouseClicked(MouseEvent e)
+    {
+        if (e.getClickCount() == 2)
+        {
+            Action action = list.getActionMap().get(keyStroke);
+
+            if (action != null)
+            {
+                ActionEvent event = new ActionEvent(
+                        list,
+                        ActionEvent.ACTION_PERFORMED,
+                        "");
+                action.actionPerformed(event);
+            }
+        }
+    }*/
 
     /*public BookJDBCTemplate getBookJDBCTemplate() {
         return bookJDBCTemplate;

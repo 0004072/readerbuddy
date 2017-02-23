@@ -2,6 +2,7 @@ package com.hsenid.reader;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionListener;
@@ -18,6 +19,25 @@ public class ParentWindow extends JFrame {
     JMenu booksMenu;
     JMenu usersMenu;
     JMenuItem newOpt;
+    JMenuItem viewBooks;
+    private BookJDBCTemplate bookJDBCTemplate;
+    private UserJDBCTemplate userJDBCTemplate;
+
+    public BookJDBCTemplate getBookJDBCTemplate() {
+        return bookJDBCTemplate;
+    }
+
+    public void setBookJDBCTemplate(BookJDBCTemplate bookJDBCTemplate) {
+        this.bookJDBCTemplate = bookJDBCTemplate;
+    }
+
+    public UserJDBCTemplate getUserJDBCTemplate() {
+        return userJDBCTemplate;
+    }
+
+    public void setUserJDBCTemplate(UserJDBCTemplate userJDBCTemplate) {
+        this.userJDBCTemplate = userJDBCTemplate;
+    }
 
     public JMenuBar createMenu() {
         menu = new JMenuBar();
@@ -26,6 +46,8 @@ public class ParentWindow extends JFrame {
         fileMenu.add(newOpt);
         editMenu = new JMenu("Edit");
         booksMenu = new JMenu("Books");
+        viewBooks = new JMenuItem("View");
+        booksMenu.add(viewBooks);
         usersMenu = new JMenu("Users");
         menu.add(fileMenu);
         menu.add(editMenu);
@@ -44,12 +66,10 @@ public class ParentWindow extends JFrame {
         frame.setSize(230, 147);
         Container container = ((BasicInternalFrameUI) frame.getUI()).getNorthPane();
         container.remove(0);
-
         return frame;
     }
 
-    public ParentWindow() {
-        loadParentWindow();
+    public ParentWindow(ViewBookDetails viewBookDetails) {
         desktopPane = new JDesktopPane();
         add(desktopPane);
         setJMenuBar(createMenu());
@@ -62,13 +82,22 @@ public class ParentWindow extends JFrame {
                 }
         );
 
+        viewBooks.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+                        desktopPane.add(viewBookDetails);
+                        viewBookDetails.setVisible(true);
+                        viewBookDetails.setSize(450, 230);
+                    }
+                }
+        );
     }
 
     public void loadParentWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setTitle("ReaderBuddy");
-        setSize(500, 250);
+        setSize(550, 400);
     }
 
     {
@@ -88,6 +117,7 @@ public class ParentWindow extends JFrame {
     private void $$$setupUI$$$() {
         parentPanel = new JPanel();
         parentPanel.setLayout(new GridBagLayout());
+        parentPanel.setBackground(new Color(-65794));
     }
 
     /**

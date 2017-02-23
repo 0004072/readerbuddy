@@ -16,7 +16,7 @@ public class ReaderBuddy
         ApplicationContext beanFactory = new ClassPathXmlApplicationContext("META-INF/Beans.xml");
         //UserJDBCTemplate userJbdcObj = beanFactory.getBean("userJDBCTemplate", UserJDBCTemplate.class);
         //Utilities utils = beanFactory.getBean("utilities", Utilities.class);
-        LoginForm loginForm = beanFactory.getBean("loginform", LoginForm.class);
+        //LoginForm loginForm = beanFactory.getBean("loginform", LoginForm.class);
         //BookJDBCTemplate bookJDBCObj= beanFactory.getBean("bookJDBCTemplate", BookJDBCTemplate.class);
         //ViewBookDetails viewBooks = beanFactory.getBean("viewBook", ViewBookDetails.class);
         //ParentWindow parent = beanFactory.getBean("parentWindow", ParentWindow.class);

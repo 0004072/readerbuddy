@@ -15,6 +15,10 @@ public class BookMapper implements RowMapper<Book> {
         book.setBk_title(resultSet.getString("bk_title"));
         book.setBk_author(resultSet.getString("bk_author"));
         book.setBk_desc(resultSet.getString("bk_desc"));
+        book.setBk_submiter("bk_submitter");
+        book.setBk_accepter("bk_accepter");
+        book.setBk_source("bk_source");
+        book.setBk_status("bk_status");
         return book;
     }
 }
